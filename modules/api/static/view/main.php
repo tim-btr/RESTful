@@ -1,1 +1,1 @@
-<p class="h3">This is API view</p>
+<?php exit('This is API view');

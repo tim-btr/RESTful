@@ -1,0 +1,27 @@
+GETGETGETGETGETGET  
+curl http://rest.loc/api/user/get.php
+curl http://rest.loc/api/user/get-single.php?id=2
+GETGETGETGETGETGET
+
+POSTPOSTPOSTPOSTPOST   
+curl -X POST -d 'id=5&title=Dambldor' http://rest.loc/api/user/create.php
+curl -X POST -d '{"title":"Tito&Tarantula", "text":"After Dark"}' -H "Content-Type: application/json"  http://rest.loc/api/user/create.php
+
+post http://rest.loc/api/user/create.php HTTP/1.1
+Content-Type: application/json
+
+{
+"title":"Tito&Tarantula", 
+"text":"After Dark"
+}
+POSTPOSTPOSTPOSTPOST
+
+
+PUT    
+curl -X PUT -H 'Content-Type: application/json' -d '{'userId': 5, 'title': 'New Post Title', 'body': 'New post content.'}' http://rest.loc/api/user/update.php
+
+curl -X PUT -d '{"id":4, "title":"Tito&Tarantula", "text":"After Dark"}' -H "Content-Type: application/json"  http://rest.loc/api/user/update.php
+
+DELETE /api/users/2/token***   - delete user by id
+
+ 

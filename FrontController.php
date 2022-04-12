@@ -30,6 +30,8 @@ class FrontController
 				$temp = preg_replace('#^'.$k.'$#ui', $v, $uri);
 
 				$params = $this->params = explode('/', $temp);
+				$this->params = explode('/', $uri );
+				
 				if($params[0] == 'api') {
 					Core::$MODEL = Core::$MODEL.'/api';
 					Core::$SKIN = 'api';

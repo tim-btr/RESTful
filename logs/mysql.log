@@ -30429,3 +30429,34 @@ You have an error in your SQL syntax; check the manual that corresponds to your 
 
             =================================
  
+Запрос не был выполнен.
+
+            ЗАПРОС: 
+            UPDATE `users` SET
+                `name` = 'Scorpions',
+                `phone` = 'Scorpions'
+                `updated_at` = NOW()
+            WHERE
+                `id` = 1
+You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`updated_at` = NOW()
+            WHERE
+                `id` = 1' at line 4
+
+            Выявлена ошибка в файле: D:\OServer\domains\simrest.loc\modules\api\models\User\User.php
+
+            Строка: 97, текст запроса: 
+            UPDATE `users` SET
+                `name` = 'Scorpions',
+                `phone` = 'Scorpions'
+                `updated_at` = NOW()
+            WHERE
+                `id` = 1
+
+            Время: 2022-04-12 09:04:17
+
+            Ошибка: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`updated_at` = NOW()
+            WHERE
+                `id` = 1' at line 4
+
+            =================================
+ 
