@@ -1,5 +1,7 @@
 <?php
 use config\Core;
+use library\Helper;
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -9,59 +11,44 @@ use config\Core;
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>RESTful App</title>
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/skins/<?php echo hc(Core::$SKIN);?>/css/custom.css">
+	<link rel="stylesheet" href="/css/custom.css">
 </head>
 <body>
-	<header>
-		<div class="container-fluid">
-			<div class="row">
+	<div class="container-fluid">
+			<!--<div class="alert alert-success message" role="alert" onclick="">
+				You've been successfully registered!
+			</div>-->
+			</div>
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav">
+					<?php foreach($navigation as $k => $v) : ?>
+						<li class="nav-item">
+							<a class="nav-link" href="<?php echo $k; ?>">
+								<?php echo $v; ?>
+							</a>
+						</li>
+					<?php endforeach;	?>
+					</ul>
+				</div>
+
+				<div class="auth col align-self-end text-right">
 				<?php
 				if(isset($_SESSION['user'])) {
-					  echo '<div class="col align-self-start greet">приветствую, '.$_SESSION['user']['name'].'</div>';
+					echo '<div class="col align-self-start greet">приветствую, '.$_SESSION['user']['name'].'</div>';
 				}
-				?>
-				<div class="auth col align-self-end text-right">
-					<?php
-					if(!isset($_SESSION['user'])) { ?>
-						  <a href="/account/login">вход</a>
-						  <a href="/account/register">регистрация</a>
-					<?php
-					} else { ?>
-						  <a href="/account/exit">выход</a>
-					<?php
-					}
-					?>
-		  	</div>
+				if(!isset($_SESSION['user'])) { ?>
+						<a href="/account/login" class="btn btn-default">SignIn</a>
+						<a href="/account/register" class="btn btn-default">SignUp</a>
+				<?php } else { ?>
+					<a href="/account/exit">Exit</a>
+				<?php }	?>
 			</div>
-		</div>
-		<nav class="navbar navbar-expand-lg navbar-light">
-			<a class="navbar-brand" href="/">imagica</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse mr-5" id="navbarNav">
-				<ul class="navbar-nav">
-					<?php
-					foreach($navigation as $k=>$v) { ?>
-							<li class="nav-item">
-								<a class="nav-link" href="/<?php echo hc($k);?>"><?php echo hc($v);?></a>
-							</li>
-					<?php
-					}
-					?>
-					</li>
-				</ul>
-			</div>
-		</nav>
-	</header>
+			</nav>
 
-<main>
-	<?php echo $content; ?>
-</main>
-
-<footer class="">
-	<div class="container-fluid text-center">
-		&copy; <?php echo Core::$YEAR.' - '.date('Y'); ?> Imagica.
+			<main>
+			<?php echo $content; ?>
+			</main>
 	</div>
 </footer>
 <!-- ///////////// ПОДКЛЮЧЕНИЕ СКРИПТОВ  ///////////// -->

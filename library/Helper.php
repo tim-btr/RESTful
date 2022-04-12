@@ -2,7 +2,7 @@
 
 namespace library;
 
-use db\Db;
+use library\Db;
 
 /**
  * Функции - оболочки для обработки массивов

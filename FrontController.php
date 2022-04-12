@@ -1,10 +1,12 @@
 <?php
 
 use config\Core; 
+use library\Helper;
 
 class FrontController
 {
 	private $routes;
+	public $params;
 
 	public function __construct()
 	{
@@ -14,7 +16,7 @@ class FrontController
 	public function getUri()
 	{
 		if(!empty($_SERVER['REQUEST_URI'])) {
-			return trimAll($_SERVER['REQUEST_URI'], '/');
+			return Helper::trimAll($_SERVER['REQUEST_URI'], '/');
 		}
 	}
 
@@ -27,7 +29,7 @@ class FrontController
 
 				$temp = preg_replace('#^'.$k.'$#ui', $v, $uri);
 
-				$params = explode('/', $temp);
+				$params = $this->params = explode('/', $temp);
 				if($params[0] == 'api') {
 					Core::$MODEL = Core::$MODEL.'/api';
 					Core::$SKIN = 'api';

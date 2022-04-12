@@ -1,80 +1,52 @@
 <?php
-use library\Mail\Mail;
+use library\Helper;
+use library\Db;
 
-Core::$CSS[] = '<link rel="stylesheet" href="">';
-
-if(isset($_POST['login'], $_POST['name'], $_POST['pass'], $_POST['email']) ) {
-	$errors = array();
+if(isset($_POST['name'], $_POST['phone']) ) {
+	$errors = [];
 	
-	if(empty($_POST['login'])) {
-		$errors['login'] = 'Не заполнен логин';
-	} elseif(mb_strlen($_POST['login']) < 3) {
-		$errors['login'] = 'Логин слишком короткий';
-	} elseif(mb_strlen($_POST['login']) > 15) {
-		$errors['login'] = 'Логин слишком длинный';
-	}
-
 	if(empty($_POST['name'])) {
-		$errors['name'] = 'Не заполнено имя';
+		$errors['name'] = 'Name field is empty';
+	} elseif(mb_strlen($_POST['name']) < 3) {
+		$errors['name'] = 'Name is too short';
+	} elseif(mb_strlen($_POST['name']) > 25) {
+		$errors['name'] = 'Name is too long';
 	}
 
-	if(empty($_POST['pass'])) {
-		$errors['pass'] = 'Не заполнен пароль';
-	} elseif(mb_strlen($_POST['pass']) > 12) {
-		$errors['pass'] = 'Пароль слишком длинный';
-	} elseif(mb_strlen($_POST['pass']) < 4) {
-		$errors['pass'] = 'Пароль слишком короткий';
-	}
+	if(empty($_POST['phone'])) {
+		$errors['phone'] = 'Phone field is empty';
+	} elseif(mb_strlen($_POST['phone']) > 12 || mb_strlen($_POST['phone']) < 12) {
+		$errors['phone'] = 'Allowed format only: +79996661323';
+	} 
 	
-	if(empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-		$errors['email'] = 'Не заполнен емейл или он некорректен';
-	}
-	
+	//Выявляем пользователя с подобным телефоном
 	if(count($errors) == 0) {
-		$res = q("
+		$res = Db::q("
 			SELECT * FROM `users`
-			WHERE `login` = '".es($_POST['login'])."'
+			WHERE `phone` = '".Helper::es($_POST['phone'])."'
 			LIMIT 1
 		");
 		if($res->num_rows) {
-			$errors['login'] = 'Пользователь с таким логином уже существует';
-		}
+			$errors['phone'] = 'User with such phone is already exist';
+		}		
+	}
+	
+	if(count($errors) == 0) {
+		$query = "INSERT INTO `users` SET
+			`name`     = '".Helper::es($_POST['name'])."',
+			`phone`    = '".Helper::es($_POST['phone'])."',
+			`token`     = '".Helper::es(Helper::myHash($_POST['name'].$_POST['phone']))."'
+		";
+
 		
-		$res = q("
-			SELECT * FROM `users`
-			WHERE `email` = '".es($_POST['email'])."'
-			LIMIT 1
-		");
-		if($res->num_rows) {
-			$errors['email'] = 'Пользователь с такой эл. почтой уже существует';
+		if(Db::q($query)) {
+			$_SESSION['register'] = true;
+		} else {
+			die(mysqli_error($link));
 		}
-	}
-	
-	if(count($errors) == 0) {
-		q("
-			INSERT INTO `users` SET
-			`login`    = '".es($_POST['login'])."',
-			`password` = '".es(myHash($_POST['pass']))."',
-			`name`     = '".es($_POST['name'])."',
-			`email`    = '".es($_POST['email'])."',
-			`age`      = ".(int)$_POST['age'].",
-			`sex`      = '".es($_POST['sex'])."',
-			`hash`     = '".es(myHash($_POST['login'].$_POST['email']))."'
-		") or die(mysqli_error($link));
 
-		$id = \DB::_()->insert_id;
-
-		$_SESSION['register'] = 'ok';
-
-		$mail = new Mail();
-
-		$mail->to = es($_POST['email']);
-		$mail->subject = 'Подтверждение регистрации';
-		$mail->text = '
-			Чтобы активировать Вашу учётную запись, пройдите по <a href="'.Core::$domain.'/index.php?module=account&page=activate&id='.$id.'&hash='.es(myHash($_POST['login'].$_POST['email'])).'">данной ссылке</a> ';
-		$mail->send();
-
-		header('Location: /account/register');
+		$id = Db::_()->insert_id;
+		header('Location: /');
 		exit;
 	}
 }

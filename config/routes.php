@@ -2,7 +2,9 @@
 return [
 	//Главная страница, страница по-умолчанию
 	'' => 'static/main',
-	'api/([a-z]+)' => 'api/static/main',
+	'api' => 'api/static/main',
+	'api/([a-z]+)' => 'api/static/main/',
+	'api/([a-z]+)/([0-9]+)' => 'api/static/main/',
 
 
 	//Авторизация и регистрация

@@ -1,9 +1,12 @@
 <?php
+use library\Helper;
+use library\Db;
+
 if(isset($_POST['login'], $_POST['pass'])) { 
-	$res = q("
+	$res = Db::q("
 		SELECT * FROM `users` WHERE
-		`login`    = '".es($_POST['login'])."' AND 
-		`password` = '".es(myHash($_POST['pass']))."' AND 
+		`login`    = '".Helper::es($_POST['login'])."' AND 
+		`password` = '".Helper::es(Helper::myHash($_POST['pass']))."' AND 
 		`active`   = 1
 		LIMIT 1
 	");
@@ -15,16 +18,16 @@ if(isset($_POST['login'], $_POST['pass'])) {
 			setcookie('auth_id',(int)$_SESSION['user']['id'],time()+1500,'/');
 			$_COOKIE['auth_id'] = (int)$_SESSION['user']['id'];
 			
-			setcookie('auth_hash', es(myHash($_SESSION['user']['id'].$_SESSION['user']['login'].$_SESSION['user']['email']),time()+1500,'/'));
-			$_COOKIE['auth_hash'] = es(myHash($_SESSION['user']['id'].$_SESSION['user']['login'].$_SESSION['user']['email']));
+			setcookie('auth_hash', Helper::es(Helper::myHash($_SESSION['user']['id'].$_SESSION['user']['login'].$_SESSION['user']['email']),time()+1500,'/'));
+			$_COOKIE['auth_hash'] = Helper::es(Helper::myHash($_SESSION['user']['id'].$_SESSION['user']['login'].$_SESSION['user']['email']));
 			
-			q("
+			Db::q("
 				UPDATE `users` SET 
-				`hash`     = '".es(myHash($_SESSION['user']['id'].$_SESSION['user']['login'].$_SESSION['user']['email']))."',
-				`addition` = '".es(myHash($_SERVER['HTTP_USER_AGENT']))."'
+				`hash`     = '".Helper::es(Helper::myHash($_SESSION['user']['id'].$_SESSION['user']['login'].$_SESSION['user']['email']))."',
+				`addition` = '".Helper::es(Helper::myHash($_SERVER['HTTP_USER_AGENT']))."'
 				WHERE
 				`id`    = ".(int)$_SESSION['user']['id']." AND 
-			    `login` = '".es($_SESSION['user']['login'])."'
+			    `login` = '".Helper::es($_SESSION['user']['login'])."'
 			");
 		}
 		header('Location: /');

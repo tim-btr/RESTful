@@ -1,16 +1,19 @@
 <?php
+use library\Helper;
+use library\Db;
+
 if(isset($_GET['hash'])) {
-	q("
+	Db::q("
 		UPDATE `users` SET 
 		`active` = 1, 
 		`role` = 'user'
-		WHERE `hash` = '".es($_GET['hash'])."'
+		WHERE `hash` = '".Helper::es($_GET['hash'])."'
 		AND   `id`   = ".(int)$_GET['id']
 	);  
 	
 	$notice = 'Ваша учётная запись активирована';
 	
-	$res = q("
+	$res = Db::q("
 		SELECT * FROM `users` 
 		WHERE `id`   = ".(int)$_GET['id']."
 		AND `active` = 1

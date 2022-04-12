@@ -8,10 +8,11 @@ ob_start();
 
 use config\Core;
 
-include './library/functions.php';
+//Autoload
+include './config/autoload.php';
 include './config/config.php';
 
-$frontContr = new FrontController;
+$frontContr = new \FrontController;
 if(!$frontContr->init()) {
 	header('Location: /404');
 	exit;

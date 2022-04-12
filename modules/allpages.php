@@ -1,11 +1,11 @@
 <?php
 $navigation = [
-	''=>'Главная',
-	'posts'=>'Материалы',
+	''=>'Main',
+	'users'=>'UsersList',
 ];
 
 
-if(isset($_SESSION['user'])) {
+/*if(isset($_SESSION['user'])) {
 	$res = q("
 		SELECT * FROM `users`
 		WHERE `id` = ".(int)$_SESSION['user']['id']."
@@ -31,4 +31,4 @@ if(isset($_SESSION['user'])) {
 	} else {
 		include './modules/account/exit.php';
 	}
-}
+}*/

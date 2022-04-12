@@ -1,5 +1,5 @@
 <?php
-namespace db;
+namespace library;
 
 use config\Core;
 
