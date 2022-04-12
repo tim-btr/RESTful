@@ -1,0 +1,103 @@
+nav.navbar {
+	background-color:lighten(#343a40, 5%);
+	padding:0.8rem 1rem;
+
+	.title {
+		font-weight:600;
+		font-size:1.2rem;
+
+		@media (max-width:940px) {
+			font-size:.8rem;
+			font-weight:100;
+		}
+	}
+
+	&, a {
+		color:white;
+		text-transform:uppercase;
+	}
+}
+
+// СОДЕРЖИМОЕ САЙДБАРА
+.sidebar {
+	background-color:lighten(#343a40, 5%);
+	position: fixed;
+	height: 500vh;
+
+	.menu-item {
+		margin-top:13px;
+		padding-left:1.6rem;
+		position:relative;
+
+		@media (max-width:1140px) {
+			padding-left:1rem;
+		}
+	}
+
+	.glyph {
+		color:lighten(#343a40, 30%);
+		font-size:18px;
+		position:absolute;
+		top:6px;
+		left:0;
+
+		@media (max-width:1140px) {
+			font-size:14px;
+		}
+	}
+
+	.menu-link {
+		font-size:18px;
+		font-weight:600;
+		text-transform:capitalize;
+		color:lighten(#343a40, 30%);
+		word-wrap: break-word;
+
+		@media (max-width:1140px) {
+			font-size:14px;
+		}
+
+		&:hover {
+			text-decoration:none;
+			color:lighten(#343a40, 45%);
+		}
+	}
+
+}
+
+// ОСНОВНОЕ СОДЕРЖИМОЕ
+main {
+	padding-top:15px;
+
+	span {
+		color:red;
+	}
+
+	.no-padd {
+		padding-left:0;
+		padding-right:0;
+	}
+
+	.search-form {
+		margin-bottom:18px;
+
+		.form-group {
+			margin-right:15px !important;
+		}
+	}
+
+	table  {
+		margin-top:18px;
+	}
+
+	.info {
+		text-transform:uppercase;
+		color:white;
+		margin-bottom:18px;
+	}
+
+	.warning {
+		.info;
+		color:#000;
+	}
+}

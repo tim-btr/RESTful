@@ -1,0 +1,56 @@
+label,
+footer,
+a,
+p,
+h1,
+h2,
+h3,
+p.h3,
+.warning {
+  color: #ffffff;
+}
+.text-muted,
+.greet {
+  color: #ffffff !important;
+}
+body {
+  background: #61254b url("/skins/default/img/mainbg.jpg") 0 0 no-repeat;
+  background-size: cover;
+}
+.auth p {
+  display: inline;
+}
+.auth a,
+.auth a:hover {
+  text-transform: capitalize;
+  color: #ffffff;
+}
+.banner {
+  height: 500px;
+}
+nav .navbar-brand {
+  margin-right: 4rem;
+}
+nav .navbar-brand {
+  text-transform: uppercase;
+}
+nav a {
+  color: #ffffff !important;
+}
+.info,
+.warning {
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.rstar {
+  color: red;
+}
+.article-preview {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ffffff;
+}
+footer {
+  padding: 35px 0px;
+}
+/*# sourceMappingURL=custom.css.map */
