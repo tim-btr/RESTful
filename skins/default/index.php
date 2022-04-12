@@ -35,7 +35,7 @@ use library\Helper;
 				<div class="auth col align-self-end text-right">
 				<?php
 				if(isset($_SESSION['user'])) {
-					echo '<div class="col align-self-start greet">приветствую, '.$_SESSION['user']['name'].'</div>';
+					echo '<div class="col align-self-start greet">Hello, '.$_SESSION['user']['name'].'</div>';
 				}
 				if(!isset($_SESSION['user'])) { ?>
 						<a href="/account/login" class="btn btn-default">SignIn</a>

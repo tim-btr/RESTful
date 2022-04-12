@@ -2,19 +2,18 @@
 use library\Helper;
 use library\Db;
 
-if(isset($_POST['login'], $_POST['pass'])) { 
+if(isset($_POST['phone'])) { 
 	$res = Db::q("
 		SELECT * FROM `users` WHERE
-		`login`    = '".Helper::es($_POST['login'])."' AND 
-		`password` = '".Helper::es(Helper::myHash($_POST['pass']))."' AND 
-		`active`   = 1
+		`phone`    = '".Helper::es($_POST['phone'])."'
 		LIMIT 1
 	");
+
 	if($res->num_rows) {
 		$_SESSION['user'] = $res->fetch_array();
 		$login = 'ok';
 		
-		if(isset($_POST['rememberme'])) {
+	/*	if(isset($_POST['rememberme'])) {
 			setcookie('auth_id',(int)$_SESSION['user']['id'],time()+1500,'/');
 			$_COOKIE['auth_id'] = (int)$_SESSION['user']['id'];
 			
@@ -29,11 +28,11 @@ if(isset($_POST['login'], $_POST['pass'])) {
 				`id`    = ".(int)$_SESSION['user']['id']." AND 
 			    `login` = '".Helper::es($_SESSION['user']['login'])."'
 			");
-		}
+		}*/
 		header('Location: /');
 		exit;
 	} else {
-		$status = '<p><b>Неправильные данные</b></p>';
+		$status = '<p><b>Incorrect data</b></p>';
 	}
 }
 
