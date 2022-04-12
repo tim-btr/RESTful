@@ -30414,3 +30414,18 @@ Table 'rest.meta' doesn't exist
 
 		=================================
  
+Запрос не был выполнен.
+
+            ЗАПРОС: SELECT * FROM `users` DESC
+You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DESC' at line 1
+
+            Выявлена ошибка в файле: D:\OServer\domains\simrest.loc\modules\static\main.php
+
+            Строка: 6, текст запроса: SELECT * FROM `users` DESC
+
+            Время: 2022-04-12 07:04:21
+
+            Ошибка: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DESC' at line 1
+
+            =================================
+ 
