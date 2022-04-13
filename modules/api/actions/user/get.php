@@ -2,8 +2,9 @@
 
 use modules\api\models\User\User;
 
-header('Access-Control-Allow-Origin: *');
-header('Content-Type: application/json; charset=utf8');
+//header('Access-Control-Allow-Origin: *');
+//header('Content-Type: application/json; charset=utf8');
+header('Access-Control-Allow-Methods: GET');
 
 $user = new User();
 

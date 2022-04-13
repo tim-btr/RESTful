@@ -5,6 +5,7 @@ return [
 	'api' => 'api/static/main',
 	'api/([a-z]+)' => 'api/static/main/',
 	'api/([a-z]+)/([0-9]+)' => 'api/static/main/',
+	'api/access\?phone=([0-9]+)\&name=([\w\d]+)' => 'api/static/main/',
 
 
 	//Авторизация и регистрация

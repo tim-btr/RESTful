@@ -1,16 +1,27 @@
+############### GET TOKEN #################
+get http://simrest.loc/api/access?phone=74837493848&name=Scorpions
+
 ############### GET ALL ITEMS #################
 get http://simrest.loc/api/user
 
+{
+    "token":"84754jd8u5jd9"
+}
+
 ############### GET SINGLE ITEM #################
 get http://simrest.loc/api/user/1
+
+{
+    "token":"84754jd8u5jd9"
+}
 
 ############### POST ################
 post http://simrest.loc/api/user HTTP/1.1
 Content-Type: application/json
 
 {
-    "name":"After Dark", 
-    "phone":"+94837493848"
+    "name":"Bananarama", 
+    "phone":"+74837493848"
 }
 
 ############## PUT #################
