@@ -9,9 +9,30 @@ use modules\api\actions\user\GetAction;
 use modules\api\actions\user\PostAction;
 use modules\api\actions\user\PutAction;
 use modules\api\actions\user\DeleteAction;
+use modules\api\models\Access;
+
+//Выдаём токен на запрос access в адресной строке
+if(in_array('access', $frontContr->params)) {
+    if(isset($_GET['phone'])) {
+        Access::giveToken($_GET['phone']);
+    } else {
+        echo json_encode(['Phone number was not given']);
+        exit;
+    }
+}
 
 //Загружаем информацию из пришедшего JSON
 $dataArray = (array)json_decode(file_get_contents("php://input"));
+
+//В этом блоке проверям доступ.
+//Берётся токен, пришедший из запроса и сравнивается с токеном который был
+//записан в сессию 
+if(!isset($_SESSION['api'])) {
+    echo json_encode(['Access denied: ' => 'You are not authorized']);
+    exit;
+} else {
+    Access::getAccess($dataArray);
+}
 
 //Выполняем действие в зависимости от метода, который пришёл
 switch ($_SERVER['REQUEST_METHOD']) {

@@ -1,18 +1,18 @@
-############### GET TOKEN #################
-get http://simrest.loc/api/access?phone=74837493848&name=Scorpions
+############### GET TOKEN ввести 11 цифр, без знака + #################
+get http://simrest.loc/api/access/?phone=74837493848
 
 ############### GET ALL ITEMS #################
 get http://simrest.loc/api/user
 
 {
-    "token":"84754jd8u5jd9"
+    "token":"wtEhHBvf4Hcxw"
 }
 
 ############### GET SINGLE ITEM #################
 get http://simrest.loc/api/user/6
 
 {
-    "token":"84754jd8u5jd9"
+    "token":"wtEhHBvf4Hcxw"
 }
 
 ############### POST ################
@@ -20,25 +20,27 @@ post http://simrest.loc/api/user HTTP/1.1
 Content-Type: application/json
 
 {
+    "token":"wtEhHBvf4Hcxw",
     "name":"Testing post", 
     "phone":"+74837493848"
 }
 
 ############## PUT #################
-put http://simrest.loc/api/user/8 HTTP/1.1
+put http://simrest.loc/api/user/9 HTTP/1.1
 Content-Type: application/json
 
 {
-    "name":"Тайбер септим",
+    "token":"wtEhHBvf4Hcxw",
+    "name":"Tiber septin",
     "phone":"+74837493848"
 }
 
 ############## DELETE #################
-delete http://simrest.loc/api/user/8 HTTP/1.1
+delete http://simrest.loc/api/user/9 HTTP/1.1
 Content-Type: application/json
 
 {
-    "token": "k9e8989d9cj"
+    "token":"wtEhHBvf4Hcxw"
 }
 
 
