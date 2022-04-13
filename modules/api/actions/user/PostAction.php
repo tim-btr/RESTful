@@ -31,7 +31,7 @@ class PostAction implements ApiActionInterface
                 ];
                 return $data;
             } else {
-                return ['Post creating failed'];
+                return ['Post creating failed: ' => 'Phone alredy exists'];
             }
         } else {
             return ['No data transfered'];

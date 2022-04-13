@@ -66,6 +66,9 @@ class User
      */
     public function createUser() : bool
     {
+        if(!$this->getUnique($this->phone)) {
+            return false;
+        }
         $query = "
             INSERT INTO `".$this->table."` SET
             `name`  = '".Helper::es($this->name)."',
@@ -115,6 +118,23 @@ class User
         }
 
         return false;
+    }
+
+    /**
+     * Находим совпатение по номеру телефона
+     *
+     * @param string $phone
+     * @return boolean
+     */
+    public function getUnique(string $phone) : bool
+    {
+        $query = "SELECT `id` FROM `users` WHERE `phone` = '".Helper::es($phone)."' LIMIT 1";
+        $result = Db::q($query);
+
+        if($result->num_rows){
+            return false;
+        }
+        return true;
     }
 
     /**
