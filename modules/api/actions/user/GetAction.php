@@ -1,6 +1,6 @@
 <?php 
 
-namespace modules\api\actions\user2;
+namespace modules\api\actions\user;
 
 use interfaces\ApiActionInterface;
 use modules\api\models\User\User;
@@ -9,9 +9,9 @@ class GetAction implements ApiActionInterface
 {
    
     /**
-     * Получение из базы всех пользователей
-     *
+     * Получение данных
      * @param array $restData
+     * @param [int] $id
      * @return array
      */
     public function doApiAction(array $restData) : array 
@@ -42,7 +42,7 @@ class GetAction implements ApiActionInterface
      * Поиск пользователя по $id
      *
      * @param array $restData
-     * @param [type] $id
+     * @param [int] $id
      * @return array
      */
     public function doAdditionalAction(array $restData, $id) : array

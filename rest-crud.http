@@ -9,7 +9,7 @@ get http://simrest.loc/api/user
 }
 
 ############### GET SINGLE ITEM #################
-get http://simrest.loc/api/user/1
+get http://simrest.loc/api/user/6
 
 {
     "token":"84754jd8u5jd9"
@@ -20,22 +20,26 @@ post http://simrest.loc/api/user HTTP/1.1
 Content-Type: application/json
 
 {
-    "name":"Bananarama", 
+    "name":"Testing post", 
     "phone":"+74837493848"
 }
 
 ############## PUT #################
-put http://simrest.loc/api/user/1 HTTP/1.1
+put http://simrest.loc/api/user/8 HTTP/1.1
 Content-Type: application/json
 
 {
-    "name":"Scorpions",
+    "name":"Тайбер септим",
     "phone":"+74837493848"
 }
 
 ############## DELETE #################
-delete http://simrest.loc/api/user/2 HTTP/1.1
+delete http://simrest.loc/api/user/8 HTTP/1.1
 Content-Type: application/json
+
+{
+    "token": "k9e8989d9cj"
+}
 
 
 

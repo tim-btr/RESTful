@@ -1,6 +1,6 @@
 <?php 
 
-namespace modules\api\actions\user2;
+namespace modules\api\actions\user;
 
 use interfaces\ApiActionInterface;
 use modules\api\models\User\User;
@@ -16,20 +16,18 @@ class PostAction implements ApiActionInterface
      */
     public function doApiAction(array $restData) : array
     {
-        $user = new User();
+        $model = new User();
 
         if(isset($restData['name'], $restData['phone'])) {
-            $user->name = $restData['name'];
-            $user->phone = $restData['phone'];
+            $model->name = $restData['name'];
+            $model->phone = $restData['phone'];
             
-            if($user->createUser()) {
-               
-
+            if($model->createUser()) {
                 $data = [
                     'status' => 'Post created',
                     'id'     => Db::_()->insert_id,
-                    'name'   => $user->name,
-                    'phone'  => $user->phone,
+                    'name'   => $model->name,
+                    'phone'  => $model->phone,
                 ];
                 return $data;
             } else {

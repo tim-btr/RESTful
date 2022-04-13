@@ -5,13 +5,18 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json; charset=utf8');
 
-use modules\api\actions\user2\GetAction;
-use modules\api\actions\user2\PostAction;
+use modules\api\actions\user\GetAction;
+use modules\api\actions\user\PostAction;
+use modules\api\actions\user\PutAction;
+use modules\api\actions\user\DeleteAction;
 
+//Загружаем информацию из пришедшего JSON
 $dataArray = (array)json_decode(file_get_contents("php://input"));
 
-
+//Выполняем действие в зависимости от метода, который пришёл
 switch ($_SERVER['REQUEST_METHOD']) {
+    
+    //Получение записей
     case 'GET':
         header('Access-Control-Allow-Methods: GET');
 
@@ -24,8 +29,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
             $apiResult = $action->doApiAction($dataArray);
         }
 
+        //выводим результат
         echo json_encode($apiResult);
         exit;
+
+    //Создание записей    
     case 'POST':
 
         header('Access-Control-Allow-Methods: POST');
@@ -34,6 +42,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
         $apiResult = $action->doApiAction($dataArray);
 
+         //Получаем и выводим результат
         if(isset($apiResult['status'])) {
             http_response_code(201);
             echo json_encode($apiResult);
@@ -43,34 +52,52 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }
         exit;
         
+    //Редактироваение записей    
     case 'PUT':
-        include "./modules/api/actions/user/update.php";
-        break;
+
+        header('Access-Control-Allow-Methods: PUT');
+        
+        $action = new PutAction();
+        
+        //Получаем id из uri и добавляем к общей информации
+        if(isset($frontContr->params[2]) && is_numeric($frontContr->params[2])) {
+            $dataArray['idApi'] = $frontContr->params[2];
+            $apiResult = $action->doApiAction($dataArray);
+        }
+
+        //Получаем и выводим результат
+        if(isset($apiResult['status'])) {
+            http_response_code(200);
+            echo json_encode($apiResult);
+        } else {
+            http_response_code(404);
+            echo json_encode($apiResult);
+        }
+        exit;
+
+    //Удалеие записей    
     case  'DELETE':
-        include "./modules/api/actions/user/delete.php";
-        break; 
+       
+        header('Access-Control-Allow-Methods: DELETE');
+
+        $action = new DeleteAction();
+
+        //Получаем id из uri и добавляем к общей информации
+        if(isset($frontContr->params[2]) && is_numeric($frontContr->params[2])) {
+            $dataArray['idApi'] = $frontContr->params[2];
+            $apiResult = $action->doApiAction($dataArray);
+        }
+
+        //Получаем и выводим результат
+        if(isset($apiResult['status'])) {
+            http_response_code(200);
+            echo json_encode($apiResult);
+        } else {
+            http_response_code(404);
+            echo json_encode($apiResult);
+        }
+        exit;
+
     default:
         die('Wrong Request Method');
 }
-
-/*switch ($_SERVER['REQUEST_METHOD']) {
-    case 'GET':
-        if(isset($frontContr->params[2]) && is_numeric($frontContr->params[2])) {
-            include "./modules/api/actions/user/get-single.php";
-        } else {
-            include "./modules/api/actions/user/get.php";
-        }
-        break;
-    case 'POST':
-        include "./modules/api/actions/user/create.php";
-        break;
-    case 'PUT':
-        include "./modules/api/actions/user/update.php";
-        break;
-    case  'DELETE':
-        include "./modules/api/actions/user/delete.php";
-        break; 
-    default:
-        die('Wrong Request Method');
-}*/
-  
